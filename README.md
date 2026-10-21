@@ -1,10 +1,10 @@
-# Invitation Cards 💍
+# Digital Invitation Cards 💍
 
 A **monorepo** of luxury digital wedding invitations. Every couple gets their **own card with its own design**,
 and the hard parts (RSVP, countdown, calendar, guest list, Kiswahili toggle) are written once and shared.
 
 ```
-invitation-cards/
+digital-invitation-cards/
 ├── packages/
 │   └── shared/            ← built once, used by every card
 │       └── src/
@@ -43,7 +43,7 @@ Then redesign `apps/baraka-zuhura/app/Card.tsx`. Using a shared piece is one lin
 Shared components take their colours from CSS variables each card sets: `--ink`, `--accent`, `--card`, `--soft`.
 
 ## Deploy (one Vercel project per couple)
-1. Vercel → **Add New Project** → choose `invitation-cards`
+1. Vercel → **Add New Project** → choose `digital-invitation-cards`
 2. **Root Directory**: `apps/<couple>`
 3. Environment variables: `DATABASE_URL` (Neon) and `ADMIN_PASSWORD`
 4. Deploy, then add the couple's domain if they bought one

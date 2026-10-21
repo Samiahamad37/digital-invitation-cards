@@ -1,5 +1,5 @@
 {
-  "name": "invitation-cards",
+  "name": "digital-invitation-cards",
   "private": true,
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
