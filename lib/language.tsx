@@ -1,17 +1,18 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-import { invite, type Lang } from "@/content/invite";
+import type { Invite, InviteText, Lang } from "@/content/types";
 
-type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (typeof invite.text)[Lang] };
-const LanguageContext = createContext<Ctx | null>(null);
+type Ctx = { invite: Invite; lang: Lang; setLang: (l: Lang) => void; t: InviteText };
+const InviteContext = createContext<Ctx | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+// Gives every component the current couple's invite + the chosen language.
+export function InviteProvider({ invite, children }: { invite: Invite; children: React.ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
-  return <LanguageContext.Provider value={{ lang, setLang, t: invite.text[lang] }}>{children}</LanguageContext.Provider>;
+  return <InviteContext.Provider value={{ invite, lang, setLang, t: invite.text[lang] }}>{children}</InviteContext.Provider>;
 }
 
 export function useLang() {
-  const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error("useLang must be used inside LanguageProvider");
+  const ctx = useContext(InviteContext);
+  if (!ctx) throw new Error("useLang must be used inside InviteProvider");
   return ctx;
 }

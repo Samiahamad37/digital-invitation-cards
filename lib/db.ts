@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 
 export type RsvpRow = {
-  id: number; name: string; phone: string | null; attending: boolean;
+  id: number; couple_slug: string | null; name: string; phone: string | null; attending: boolean;
   guests: number; message: string | null; created_at: string;
 };
 
@@ -16,6 +16,7 @@ export async function ensureTable() {
   if (!sql || ready) return sql;
   await sql`CREATE TABLE IF NOT EXISTS rsvps (
     id SERIAL PRIMARY KEY,
+    couple_slug TEXT,
     name TEXT NOT NULL,
     phone TEXT,
     attending BOOLEAN NOT NULL,
@@ -23,6 +24,9 @@ export async function ensureTable() {
     message TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`;
+  // Upgrades a table created by the single-couple version
+  await sql`ALTER TABLE rsvps ADD COLUMN IF NOT EXISTS couple_slug TEXT`;
+  await sql`CREATE INDEX IF NOT EXISTS rsvps_couple_idx ON rsvps (couple_slug)`;
   ready = true;
   return sql;
 }

@@ -1,19 +1,18 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { invite } from "@/content/invite";
 import { useLang } from "@/lib/language";
 import { Reveal, SectionTitle } from "./Reveal";
 
 export function Rsvp() {
-  const { t, lang } = useLang();
+  const { t, lang, invite } = useLang();
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     const data = Object.fromEntries(new FormData(e.currentTarget));
-    const res = await fetch("/api/rsvp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+    const res = await fetch("/api/rsvp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, couple: invite.slug }) });
     setStatus(res.ok ? "done" : "error");
   }
 
@@ -39,7 +38,7 @@ export function Rsvp() {
                 <label className="flex items-center gap-2"><input type="radio" name="attending" value="yes" required defaultChecked /> {t.yes}</label>
                 <label className="flex items-center gap-2"><input type="radio" name="attending" value="no" /> {t.no}</label>
               </fieldset>
-              <input name="guests" type="number" min={1} max={2} defaultValue={1} placeholder={t.guests} className={field} />
+              <input name="guests" type="number" min={1} max={invite.maxGuests ?? 2} defaultValue={1} placeholder={t.guests} className={field} />
               <textarea name="message" rows={3} placeholder={t.message} className={field} />
               <button disabled={status === "sending"} className="w-full rounded-full bg-gold-dark py-3 text-sm uppercase tracking-[0.25em] text-ivory transition hover:bg-gold disabled:opacity-60">
                 {status === "sending" ? t.sending : t.send}

@@ -19,8 +19,20 @@ npm run dev
 ```
 Open http://localhost:3000. Without `DATABASE_URL`, RSVPs are just logged to the terminal.
 
-## Make a new invitation
-Everything a couple changes lives in **`content/invite.ts`**: names, date, venue, gifts, all words in both languages, and media paths.
+## One site, many couples
+Each couple gets their own link: `yoursite.com/amani-neema`, `yoursite.com/juma-aisha`.
+
+**Add a new couple (about 10 minutes):**
+1. Copy `content/couples/amani-neema.ts` to `content/couples/<their-slug>.ts`
+2. Change `slug`, `theme` (`bahari`, `golden` or `classic`), names, date, venue, gifts and the words
+3. Register it in `content/couples/index.ts`
+4. Push. Vercel redeploys and the new link is live
+
+RSVPs are saved with the couple's slug, so every couple's guest list stays separate.
+Guest lists: `/admin?key=ADMIN_PASSWORD` (all couples) or `&couple=<slug>` (one couple).
+New themes: add a `[data-theme="..."]` block in `app/globals.css`.
+
+> This repo is public, so never put passwords or real client phone numbers you don't want public in content files.
 
 ## Where to learn each piece
 | File | What it teaches |
@@ -29,7 +41,9 @@ Everything a couple changes lives in **`content/invite.ts`**: names, date, venue
 | `components/Intro.tsx` | Enter/exit animations (`AnimatePresence`) |
 | `components/Hero.tsx` | Video background + gradient "gold" text |
 | `components/Countdown.tsx` | Timers with `useEffect` |
-| `lib/language.tsx` | React context for the language toggle |
+| `lib/language.tsx` | React context: current couple + language toggle |
+| `app/[slug]/page.tsx` | Dynamic routes + `generateStaticParams` |
+| `content/types.ts` | TypeScript types every couple must follow |
 | `app/api/rsvp/route.ts` | API route + Postgres insert |
 | `app/admin/page.tsx` | Server component reading the database |
 | `app/api/calendar/route.ts` | Generating an .ics file |

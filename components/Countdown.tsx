@@ -1,22 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
-import { invite } from "@/content/invite";
 import { useLang } from "@/lib/language";
 import { Reveal, SectionTitle } from "./Reveal";
 
-function remaining() {
-  const ms = Math.max(0, new Date(invite.dateISO).getTime() - Date.now());
+function remaining(dateISO: string) {
+  const ms = Math.max(0, new Date(dateISO).getTime() - Date.now());
   return { d: Math.floor(ms / 864e5), h: Math.floor((ms / 36e5) % 24), m: Math.floor((ms / 6e4) % 60), s: Math.floor((ms / 1e3) % 60) };
 }
 
 export function Countdown() {
-  const { t } = useLang();
+  const { t, invite } = useLang();
   const [left, setLeft] = useState<ReturnType<typeof remaining> | null>(null);
   useEffect(() => {
-    setLeft(remaining());
-    const id = setInterval(() => setLeft(remaining()), 1000);
+    setLeft(remaining(invite.dateISO));
+    const id = setInterval(() => setLeft(remaining(invite.dateISO)), 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [invite.dateISO]);
   const items = [
     { v: left?.d, l: t.days },
     { v: left?.h, l: t.hours },

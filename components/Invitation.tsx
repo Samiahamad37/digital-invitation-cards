@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
-import { invite } from "@/content/invite";
-import { LanguageProvider, useLang } from "@/lib/language";
+import type { Invite } from "@/content/types";
+import { InviteProvider, useLang } from "@/lib/language";
 import { Intro } from "./Intro";
 import { Hero } from "./Hero";
 import { Countdown } from "./Countdown";
@@ -22,6 +22,7 @@ function LangToggle() {
 }
 
 function Page() {
+  const { invite } = useLang();
   const [open, setOpen] = useState(false);
   const audio = useRef<HTMLAudioElement>(null);
   return (
@@ -44,10 +45,12 @@ function Page() {
   );
 }
 
-export function Invitation() {
+export function Invitation({ invite }: { invite: Invite }) {
   return (
-    <LanguageProvider>
-      <Page />
-    </LanguageProvider>
+    <InviteProvider invite={invite}>
+      <div data-theme={invite.theme}>
+        <Page />
+      </div>
+    </InviteProvider>
   );
 }

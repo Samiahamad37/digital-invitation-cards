@@ -1,11 +1,10 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { invite } from "@/content/invite";
 import { useLang } from "@/lib/language";
 
 // Full-screen "envelope" the guest taps to open. Opening also starts the music.
 export function Intro({ open, onOpen }: { open: boolean; onOpen: () => void }) {
-  const { t } = useLang();
+  const { t, invite } = useLang();
   return (
     <AnimatePresence>
       {!open && (

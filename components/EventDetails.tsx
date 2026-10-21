@@ -1,10 +1,9 @@
 "use client";
-import { invite } from "@/content/invite";
 import { useLang } from "@/lib/language";
 import { Reveal, Divider } from "./Reveal";
 
 export function EventDetails() {
-  const { t } = useLang();
+  const { t, invite } = useLang();
   const btn = "inline-flex items-center gap-2 rounded-full border border-gold/70 px-5 py-2 text-xs uppercase tracking-[0.2em] transition hover:bg-gold hover:text-ivory";
   return (
     <section className="relative overflow-hidden px-6 py-24">
@@ -21,7 +20,7 @@ export function EventDetails() {
         <p className="text-sm opacity-80">{invite.venue.address}</p>
         <div className="mt-8 flex flex-col items-center gap-3">
           <a className={btn} href={invite.venue.mapsUrl} target="_blank" rel="noopener noreferrer">📍 {t.openMaps}</a>
-          <a className={btn} href="/api/calendar">📅 {t.addCalendar}</a>
+          <a className={btn} href={`/api/calendar?couple=${invite.slug}`}>📅 {t.addCalendar}</a>
         </div>
       </Reveal>
     </section>
@@ -29,7 +28,7 @@ export function EventDetails() {
 }
 
 export function DressAndGifts() {
-  const { t } = useLang();
+  const { t, invite } = useLang();
   return (
     <section className="bg-sand px-6 py-20 text-center">
       <Reveal className="mx-auto max-w-md">
@@ -63,7 +62,7 @@ export function DressAndGifts() {
 }
 
 export function Faq() {
-  const { t } = useLang();
+  const { t, invite } = useLang();
   return (
     <section className="px-6 py-20">
       <Reveal className="mx-auto max-w-md">

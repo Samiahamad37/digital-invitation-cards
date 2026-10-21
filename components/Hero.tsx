@@ -1,11 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { invite } from "@/content/invite";
 import { useLang } from "@/lib/language";
 import { OceanBackground } from "./OceanBackground";
 
 export function Hero() {
-  const { t } = useLang();
+  const { t, invite } = useLang();
   return (
     <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
       {invite.media.heroVideo ? (

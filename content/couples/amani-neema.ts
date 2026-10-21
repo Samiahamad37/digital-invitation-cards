@@ -1,12 +1,10 @@
-// ─────────────────────────────────────────────────────────────
-//  ONE FILE PER COUPLE.
-//  To make a new invitation, copy this file and change the words,
-//  date, venue and media. No other code needs to change.
-// ─────────────────────────────────────────────────────────────
+// One file per couple. Copy this file, change the words, then register it
+// in content/couples/index.ts. The couple's link will be /<slug>.
+import type { Invite } from "../types";
 
-export type Lang = "en" | "sw";
-
-export const invite = {
+export const amaniNeema: Invite = {
+  slug: "amani-neema",
+  theme: "bahari",
   couple: { partnerOne: "Amani", partnerTwo: "Neema", monogram: "A & N" },
 
   // ISO date with East Africa offset (+03:00)
@@ -122,6 +120,4 @@ export const invite = {
       error: "Kuna hitilafu. Tafadhali jaribu tena.",
     },
   },
-} as const;
-
-export type InviteText = (typeof invite.text)["en"];
+};

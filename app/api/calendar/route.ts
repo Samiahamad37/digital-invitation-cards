@@ -1,9 +1,11 @@
-import { invite } from "@/content/invite";
+import { getCouple } from "@/content/couples";
 
 // Generates an .ics file so guests can add the wedding to their phone calendar.
 const fmt = (iso: string) => new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 
-export function GET() {
+export function GET(req: Request) {
+  const invite = getCouple(new URL(req.url).searchParams.get("couple") ?? "");
+  if (!invite) return new Response("Unknown invitation", { status: 404 });
   const { partnerOne, partnerTwo } = invite.couple;
   const ics = [
     "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//wedding-invite-starter//EN", "BEGIN:VEVENT",
@@ -15,6 +17,6 @@ export function GET() {
     "END:VEVENT", "END:VCALENDAR",
   ].join("\r\n");
   return new Response(ics, {
-    headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": 'attachment; filename="wedding.ics"' },
+    headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": `attachment; filename="${invite.slug}.ics"` },
   });
 }
