@@ -1,55 +1,56 @@
-# Wedding Invite Starter 💍
+# Invitation Cards 💍
 
-A luxury digital wedding invitation built with **Next.js 16, TypeScript, Tailwind CSS v4 and Framer Motion**.
-Sample theme: *Bahari Beach, Dar es Salaam*, with an English / Kiswahili toggle.
+A **monorepo** of luxury digital wedding invitations. Every couple gets their **own card with its own design**,
+and the hard parts (RSVP, countdown, calendar, guest list, Kiswahili toggle) are written once and shared.
 
-## Features
-- Tap-to-open intro (starts background music if you add one)
-- Hero with shimmering gold names over an animated ocean (or your own video)
-- Live countdown, our story, order of the day
-- Event details with Google Maps and **Add to Calendar** (.ics)
-- Dress code, gifts (M-Pesa / bank), FAQ
-- **RSVP form saved to Neon Postgres**, with a private guest list at `/admin?key=…`
+```
+invitation-cards/
+├── packages/
+│   └── shared/            ← built once, used by every card
+│       └── src/
+│           ├── Rsvp.tsx           RSVP form (EN/SW)
+│           ├── Countdown.tsx      live countdown
+│           ├── AddToCalendar.tsx  .ics download
+│           ├── Reveal.tsx         scroll animation
+│           ├── lang.tsx           English / Kiswahili toggle
+│           ├── rsvp-handler.ts    API route that saves RSVPs to Neon
+│           └── GuestList.tsx      private guest list page
+└── apps/
+    ├── amani-neema/       ← "Bahari" beach design
+    └── juma-aisha/        ← "Emerald Lakeside" design
+```
 
-## Run it
+Each app is a normal Next.js app. Its whole design lives in **`app/Card.tsx`** (plus colours in `globals.css` and fonts in `layout.tsx`).
+
+## Run locally
 ```bash
 npm install
-cp .env.example .env.local   # optional: add DATABASE_URL and ADMIN_PASSWORD
-npm run dev
+npm run dev                    # all cards (3001, 3002, ...)
+npm run dev -w amani-neema     # just one
 ```
-Open http://localhost:3000. Without `DATABASE_URL`, RSVPs are just logged to the terminal.
 
-## One site, many couples
-Each couple gets their own link: `yoursite.com/amani-neema`, `yoursite.com/juma-aisha`.
+## New couple
+```bash
+npm run new-couple -- baraka-zuhura juma-aisha   # copy juma-aisha as a starting point
+npm install
+```
+Then redesign `apps/baraka-zuhura/app/Card.tsx`. Using a shared piece is one line:
+```tsx
+<Countdown date="2027-03-20T15:00:00+03:00" />
+<AddToCalendar title="Baraka & Zuhura Wedding" start="..." end="..." place="..." />
+<Rsvp maxGuests={2} />
+```
+Shared components take their colours from CSS variables each card sets: `--ink`, `--accent`, `--card`, `--soft`.
 
-**Add a new couple (about 10 minutes):**
-1. Copy `content/couples/amani-neema.ts` to `content/couples/<their-slug>.ts`
-2. Change `slug`, `theme` (`bahari`, `golden` or `classic`), names, date, venue, gifts and the words
-3. Register it in `content/couples/index.ts`
-4. Push. Vercel redeploys and the new link is live
+## Deploy (one Vercel project per couple)
+1. Vercel → **Add New Project** → choose `invitation-cards`
+2. **Root Directory**: `apps/<couple>`
+3. Environment variables: `DATABASE_URL` (Neon) and `ADMIN_PASSWORD`
+4. Deploy, then add the couple's domain if they bought one
 
-RSVPs are saved with the couple's slug, so every couple's guest list stays separate.
-Guest lists: `/admin?key=ADMIN_PASSWORD` (all couples) or `&couple=<slug>` (one couple).
-New themes: add a `[data-theme="..."]` block in `app/globals.css`.
+All couples can share one Neon database: every RSVP is saved with its couple's slug.
+Guest list: `https://<card-url>/guests?key=ADMIN_PASSWORD`
 
-> This repo is public, so never put passwords or real client phone numbers you don't want public in content files.
-
-## Where to learn each piece
-| File | What it teaches |
-|---|---|
-| `components/Reveal.tsx` | Scroll animations with Framer Motion |
-| `components/Intro.tsx` | Enter/exit animations (`AnimatePresence`) |
-| `components/Hero.tsx` | Video background + gradient "gold" text |
-| `components/Countdown.tsx` | Timers with `useEffect` |
-| `lib/language.tsx` | React context: current couple + language toggle |
-| `app/[slug]/page.tsx` | Dynamic routes + `generateStaticParams` |
-| `content/types.ts` | TypeScript types every couple must follow |
-| `app/api/rsvp/route.ts` | API route + Postgres insert |
-| `app/admin/page.tsx` | Server component reading the database |
-| `app/api/calendar/route.ts` | Generating an .ics file |
-
-## Deploy
-Import the repo on Vercel, add `DATABASE_URL` and `ADMIN_PASSWORD` as environment variables, deploy.
-
-## Assets
-Use only your own or licensed videos, photos and music.
+## Rules
+- Use only your own or licensed videos, photos and music. Put them in `apps/<couple>/public/`.
+- This repo is public, so keep passwords in Vercel env vars, never in code.

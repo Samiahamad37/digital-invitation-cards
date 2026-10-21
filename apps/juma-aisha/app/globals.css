@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@source "../../../packages/shared/src";
+
+/* Emerald & gold palette — the shared components read these */
+:root {
+  --ink: #f3e6c8;     /* main text (light, on dark green) */
+  --accent: #c9a45c;  /* gold */
+  --card: #123d33;    /* surfaces */
+  --soft: #0b2a23;    /* page background */
+}
+
+@theme {
+  --font-script: var(--nf-script), cursive;
+  --font-serif: var(--nf-serif), Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--soft); color: var(--ink); font-family: var(--nf-serif), Georgia, serif; }
+
+/* Arched window used for the hero and the details card */
+.arch { border-radius: 999px 999px 24px 24px; }
+
+.gold-line { background: linear-gradient(90deg, transparent, var(--accent), transparent); height: 1px; }
+
+.sparkle { animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 0%,100% { opacity: .25; } 50% { opacity: 1; } }

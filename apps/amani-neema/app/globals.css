@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@source "../../../packages/shared/src";
+
+/* Colours the shared components read */
+:root {
+  --ink: #7d5a2a;     /* main text */
+  --accent: #a77b3c;  /* gold details */
+  --card: #fbf7f0;    /* light surfaces */
+  --soft: #f7efe3;    /* alternate section background */
+}
+
+@theme {
+  --font-script: var(--nf-script), cursive;
+  --font-serif: var(--nf-serif), Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--card); color: var(--ink); font-family: var(--nf-serif), Georgia, serif; }
+
+.gold-text {
+  background: linear-gradient(100deg, #7d5a2a 0%, #d8b26a 35%, #8a6430 55%, #e5c582 75%, #7d5a2a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 6s ease-in-out infinite;
+}
+@keyframes shimmer { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+
+.ocean-bg { background: linear-gradient(180deg, #f6d7a7 0%, #f3c58f 28%, #9fc7cf 55%, #3f8597 78%, #1f5f73 100%); }
+.wave { animation: drift 9s ease-in-out infinite alternate; }
+.wave-2 { animation-duration: 13s; animation-direction: alternate-reverse; }
+@keyframes drift { from { transform: translateX(-4%); } to { transform: translateX(4%); } }

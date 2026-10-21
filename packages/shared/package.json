@@ -1,0 +1,18 @@
+{
+  "name": "@cards/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "framer-motion": "^12.43.0"
+  },
+  "peerDependencies": {
+    "next": "*",
+    "react": "*"
+  }
+}

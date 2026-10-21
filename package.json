@@ -1,25 +1,14 @@
 {
-  "name": "wedding-invite-starter",
-  "version": "0.1.0",
+  "name": "invitation-cards",
   "private": true,
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@neondatabase/serverless": "^1.2.0",
-    "framer-motion": "^12.43.0",
-    "next": "16.3.0",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "new-couple": "node scripts/new-couple.mjs"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^22",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "turbo": "^2"
+  },
+  "packageManager": "npm@10.9.0"
 }
