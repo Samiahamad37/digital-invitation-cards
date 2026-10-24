@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@source "../../../packages/shared/src";
+
+/* Palette: deep green / ink with champagne gold. Shared components read --ink, --accent, --card, --soft. */
+:root {
+  --ink: #0e2a22;      /* deep green-ink: main text on light */
+  --accent: #c9a35f;   /* champagne gold */
+  --card: #fbf8f2;     /* ivory surfaces */
+  --soft: #f3ede1;     /* alternate section background */
+  --forest: #0b2119;   /* darkest green for dark sections */
+  --emerald: #134434;
+  --gold-soft: #e7d3a5;
+}
+
+@theme {
+  --font-display: var(--nf-display), Georgia, serif;
+  --font-sans: var(--nf-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #0e2a22;
+  --color-forest: #0b2119;
+  --color-emerald: #134434;
+  --color-gold: #c9a35f;
+  --color-gold-soft: #e7d3a5;
+  --color-ivory: #fbf8f2;
+  --color-sand: #f3ede1;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { background: var(--card); color: var(--ink); font-family: var(--nf-sans), ui-sans-serif, system-ui, sans-serif; }
+::selection { background: var(--gold-soft); color: var(--forest); }
+
+.gold-text {
+  background: linear-gradient(100deg, #b08a45 0%, #ecd49c 35%, #b8914c 55%, #f1dcab 75%, #b08a45 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 7s ease-in-out infinite;
+}
+@keyframes shimmer { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+
+.gold-btn { background: linear-gradient(135deg, #e9d29c 0%, #c9a35f 50%, #a9813d 100%); color: #0b2119; }
+
+/* Subtle diamond pattern for dark sections (pure CSS, no images) */
+.pattern-dark {
+  background-color: var(--forest);
+  background-image:
+    radial-gradient(ellipse at 80% 0%, rgba(201,163,95,.18), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(19,68,52,.9), transparent 60%),
+    repeating-linear-gradient(45deg, rgba(201,163,95,.05) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(-45deg, rgba(201,163,95,.05) 0 1px, transparent 1px 22px);
+}
+
+.scanline { animation: scan 2.8s ease-in-out infinite; }
+@keyframes scan { 0%,100% { transform: translateY(0); opacity: .9; } 50% { transform: translateY(var(--scan-h, 96px)); opacity: .5; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .gold-text, .scanline { animation: none; }
+}
