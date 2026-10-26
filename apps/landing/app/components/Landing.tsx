@@ -123,7 +123,11 @@ function Hero() {
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pb-20 pt-14 md:grid-cols-[1.15fr_1fr] md:pb-28 md:pt-20">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
           <p className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-gold-soft">
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" />{tr(hero.kicker)}
+            {tr(hero.kicker.madeWith)}
+            <Icon name="heartFill" className="h-3.5 w-3.5 text-rose-400 motion-safe:animate-pulse" />
+            {tr(hero.kicker.love)} {tr(hero.kicker.and)}
+            <Icon name="flame" className="h-3.5 w-3.5 text-gold" />
+            {tr(hero.kicker.passion)}
           </p>
           <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] sm:text-6xl lg:text-[4.2rem]">
             {tr(hero.headline)}

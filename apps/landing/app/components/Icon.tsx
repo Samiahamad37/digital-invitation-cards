@@ -4,6 +4,8 @@ const paths: Record<string, React.ReactNode> = {
   glass: (<><path d="M7 3h10l-1 7a4 4 0 0 1-8 0z" /><path d="M12 14v6M8 21h8" /></>),
   pot: (<><path d="M4 10h16v3a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z" /><path d="M2 10h20M9 6c0-1 1-2 1-3M14 6c0-1 1-2 1-3" /></>),
   heart: (<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" />),
+  flame: (<path d="M12 21c-3.9 0-7-2.7-7-6.5 0-3.2 2.2-5.3 3.6-7 .3 1.7 1.2 3 2.4 3.6C11 7.5 12.3 4.8 14.5 3c.4 3 4.5 5.6 4.5 11.2C19 18.1 15.9 21 12 21z" />),
+  heartFill: (<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" fill="currentColor" />),
   cap: (<><path d="M2 9l10-5 10 5-10 5z" /><path d="M6 11v5c3 2 9 2 12 0v-5M22 9v6" /></>),
   briefcase: (<><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18" /></>),
   pen: (<><path d="M4 20l4-1 11-11-3-3L5 16z" /><path d="M14 6l3 3" /></>),

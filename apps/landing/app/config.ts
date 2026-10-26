@@ -38,7 +38,12 @@ export const waGeneralMessage = `Habari ${brand.name}! Ningependa kupata kadi za
 
 // ── Hero ─────────────────────────────────────────────────────
 export const hero = {
-  kicker: { en: "Made in Tanzania · Karibu", sw: "Imetengenezwa Tanzania · Karibu" } as Text,
+  kicker: {
+    madeWith: { en: "Made with", sw: "Imetengenezwa kwa" } as Text,
+    love: { en: "love", sw: "upendo" } as Text,
+    and: { en: "&", sw: "na" } as Text,
+    passion: { en: "passion", sw: "shauku" } as Text,
+  },
   headline: {
     en: "Beautiful digital invitations for every Tanzanian celebration",
     sw: "Kadi nzuri za mialiko za kidijitali kwa kila sherehe ya Kitanzania",
