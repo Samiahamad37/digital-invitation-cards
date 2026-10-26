@@ -16,6 +16,7 @@ digital-invitation-cards/
 │           ├── rsvp-handler.ts    API route that saves RSVPs to Neon
 │           └── GuestList.tsx      private guest list page
 └── apps/
+    ├── landing/           ← business landing page (port 3000)
     ├── amani-neema/       ← "Bahari" beach design
     └── juma-aisha/        ← "Emerald Lakeside" design
 ```
@@ -50,6 +51,26 @@ Shared components take their colours from CSS variables each card sets: `--ink`,
 
 All couples can share one Neon database: every RSVP is saved with its couple's slug.
 Guest list: `https://<card-url>/guests?key=ADMIN_PASSWORD`
+
+## apps/landing (business landing page)
+The marketing site for the invitation business: packages, how it works, showcase, FAQ and a request form
+that opens WhatsApp with the details filled in (no backend, no database). English / Kiswahili toggle included.
+
+```bash
+npm install
+npm run dev -w landing         # http://localhost:3000
+npm run build -w landing
+```
+
+**Rebrand / edit content:** everything (brand name, tagline, WhatsApp number, prices, packages, showcase links,
+stats, testimonials, FAQs, every label in EN + SW) lives in **`apps/landing/app/config.ts`**. The brand name
+"Mwaliko" is a placeholder. Prices and testimonials are placeholders too, marked in the file.
+Once the couple cards are live, set each showcase `href` to its URL.
+
+**Deploy on Vercel:**
+1. Vercel → **Add New Project** → choose `digital-invitation-cards`
+2. **Root Directory**: `apps/landing` (no environment variables needed)
+3. Deploy, then set `brand.siteUrl` in `config.ts` to the final domain so share previews use it
 
 ## Rules
 - Use only your own or licensed videos, photos and music. Put them in `apps/<couple>/public/`.
